@@ -1,21 +1,24 @@
-marks = []
-failed_subjects = 0
+pin = "1234"
+balance = 5000  # Example starting balance
+attempts = 0
 
-for i in range(1, 7):
-    m = float(input(f"Enter marks for subject {i}: "))
-    marks.append(m)
-    if m < 50:
-        failed_subjects += 1
+while attempts < 3:
+    user_pin = input("Enter your 4-digit PIN: ")
+    if user_pin == pin:
+        print("Access Granted.")
+        amount = float(input("Enter withdrawal amount: "))
+        
+        if amount > balance:
+            print("Error: Withdrawal amount exceeds balance.")
+        elif (balance - amount) < 500:
+            print("Error: Minimum remaining balance must be Rs. 500.")
+        else:
+            balance -= amount
+            print(f"Withdrawal successful! Remaining balance: Rs. {balance}")
+        break
+    else:
+        attempts += 1
+        print(f"Incorrect PIN. Attempts left: {3 - attempts}")
 
-total = sum(marks)
-average = total / 6
-
-print(f"\nTotal: {total}, Average: {average}")
-print(f"Subjects below 50: {failed_subjects}")
-
-if average >= 60 and failed_subjects == 0:
-    print("Result: Excellent Performance")
-elif average >= 50:
-    print("Result: Pass")
-else:
-    print("Result: Fail")
+if attempts == 3:
+    print("Account locked due to too many incorrect attempts.")
