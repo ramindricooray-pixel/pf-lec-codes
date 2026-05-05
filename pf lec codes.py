@@ -1,30 +1,21 @@
-correct_pin = "1234"
+marks = []
+failed_subjects = 0
 
-while True:
-    entered_pin = input("Enter your PIN: ")
-    
-    if entered_pin == correct_pin:
-        print("Access Granted")
-        break
-    else:
-        print("Incorrect PIN. Please try again.")
+for i in range(1, 7):
+    m = float(input(f"Enter marks for subject {i}: "))
+    marks.append(m)
+    if m < 50:
+        failed_subjects += 1
 
+total = sum(marks)
+average = total / 6
 
+print(f"\nTotal: {total}, Average: {average}")
+print(f"Subjects below 50: {failed_subjects}")
 
-
-
-total_bill = 0
-
-for i in range(1, 6):
-    price = float(input(f"Enter price for item {i}: "))
-    total_bill += price
-
-discount = 0
-if total_bill > 5000:
-    discount = total_bill * 0.20
-
-final_amount = total_bill - discount
-
-print(f"Total Amount: Rs. {total_bill}")
-print(f"Discount Applied: Rs. {discount}")
-print(f"Final Payable Amount: Rs. {final_amount}")
+if average >= 60 and failed_subjects == 0:
+    print("Result: Excellent Performance")
+elif average >= 50:
+    print("Result: Pass")
+else:
+    print("Result: Fail")
